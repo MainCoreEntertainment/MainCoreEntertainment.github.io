@@ -2,10 +2,516 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Main Core Entertainment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 50% 20%, #10141b 0%, #06080c 35%, #020304 75%);
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px);
+            background-size: 45px 45px;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 22px 7%;
+
+            background: rgba(2, 3, 4, 0.65);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .brand {
+            font-size: 19px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        nav a {
+            color: #bfc6d0;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+            text-shadow: 0 0 10px rgba(255,255,255,0.7);
+        }
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            padding: 100px 25px 50px;
+        }
+
+        .core {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                #ffffff 0%,
+                #c9eaff 12%,
+                #6fc7ff 25%,
+                #236fc7 48%,
+                #071426 70%);
+
+            box-shadow:
+                0 0 25px #6fc7ff,
+                0 0 70px rgba(58,160,255,0.75),
+                0 0 140px rgba(0,100,255,0.35);
+
+            margin-bottom: 45px;
+
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 25px #6fc7ff,
+                    0 0 70px rgba(58,160,255,0.75),
+                    0 0 140px rgba(0,100,255,0.35);
+            }
+
+            50% {
+                transform: scale(1.07);
+                box-shadow:
+                    0 0 40px #a9e1ff,
+                    0 0 100px rgba(58,160,255,0.9),
+                    0 0 190px rgba(0,100,255,0.45);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 7vw, 90px);
+            letter-spacing: 8px;
+            font-weight: 900;
+
+            background: linear-gradient(
+                180deg,
+                #ffffff 0%,
+                #cdd4dc 55%,
+                #7f8996 100%
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 0 35px rgba(255,255,255,0.08);
+        }
+
+        .hero .subtitle {
+            margin-top: 18px;
+            color: #8e99a8;
+            letter-spacing: 5px;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .hero .intro {
+            max-width: 700px;
+            margin-top: 36px;
+
+            color: #aeb6c2;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        .hero-button {
+            margin-top: 40px;
+            display: inline-block;
+
+            padding: 14px 28px;
+
+            color: #ffffff;
+            text-decoration: none;
+
+            border: 1px solid rgba(130,200,255,0.45);
+            border-radius: 5px;
+
+            background: rgba(70,145,210,0.07);
+
+            letter-spacing: 2px;
+            font-size: 13px;
+
+            transition: 0.35s;
+        }
+
+        .hero-button:hover {
+            background: rgba(90,180,255,0.16);
+            box-shadow: 0 0 30px rgba(70,170,255,0.22);
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 110px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 65px;
+        }
+
+        .section-title span {
+            font-size: 12px;
+            letter-spacing: 5px;
+            color: #5daeff;
+        }
+
+        .section-title h2 {
+            font-size: clamp(30px, 5vw, 52px);
+            margin-top: 12px;
+            letter-spacing: 3px;
+        }
+
+        .games {
+            background: rgba(255,255,255,0.015);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .cards {
+            max-width: 1250px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            min-height: 350px;
+
+            padding: 35px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.05),
+                    rgba(255,255,255,0.015)
+                );
+
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(80,170,255,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+        }
+
+        .card .status {
+            color: #6dc4ff;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .card h3 {
+            margin-top: 25px;
+            font-size: 27px;
+            line-height: 1.2;
+        }
+
+        .card p {
+            margin-top: 20px;
+            color: #a7afbb;
+            line-height: 1.7;
+        }
+
+        .portfolio-box {
+            max-width: 1000px;
+            margin: auto;
+
+            padding: 60px 35px;
+            text-align: center;
+
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 10px;
+
+            color: #8993a0;
+        }
+
+        .about-content {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            color: #aab3bf;
+            font-size: 18px;
+            line-height: 1.9;
+        }
+
+        .contact {
+            text-align: center;
+            background:
+                radial-gradient(circle at center,
+                rgba(30,110,180,0.12),
+                transparent 60%);
+        }
+
+        .contact p {
+            color: #9fa9b5;
+            margin-bottom: 30px;
+        }
+
+        .contact a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid #579ddd;
+            padding-bottom: 5px;
+        }
+
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+
+            color: #59616c;
+            font-size: 12px;
+            letter-spacing: 2px;
+
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 850px) {
+
+            nav {
+                padding: 18px 25px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .brand {
+                font-size: 15px;
+                letter-spacing: 2px;
+            }
+
+            section {
+                padding: 90px 25px;
+            }
+
+            .hero h1 {
+                letter-spacing: 4px;
+            }
+
+            .core {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
-    <h1>MAIN CORE ENTERTAINMENT</h1>
-    <p>Something is awakening...</p>
+
+<nav>
+
+    <div class="brand">
+        MAIN CORE
+    </div>
+
+    <ul>
+        <li><a href="#games">Hry</a></li>
+        <li><a href="#portfolio">3D tvorba</a></li>
+        <li><a href="#about">O mně</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+    </ul>
+
+</nav>
+
+
+<header class="hero">
+
+    <div class="core"></div>
+
+    <h1>MAIN CORE</h1>
+
+    <div class="subtitle">
+        Entertainment
+    </div>
+
+    <p class="intro">
+        Místo, kde vznikají herní světy, experimenty a nové nápady.
+        Od modernizace klasických her až po vlastní budoucí projekty
+        a 3D tvorbu.
+    </p>
+
+    <a class="hero-button" href="#games">
+        OBJEVIT PROJEKTY
+    </a>
+
+</header>
+
+
+<section id="games" class="games">
+
+    <div class="section-title">
+        <span>PROJECTS</span>
+        <h2>HRY</h2>
+    </div>
+
+    <div class="cards">
+
+        <article class="card">
+
+            <span class="status">
+                PROJECT IN DEVELOPMENT
+            </span>
+
+            <h3>
+                Starship Troopers<br>
+                Re-Enlisted
+            </h3>
+
+            <p>
+                Projekt zaměřený na modernizaci původního
+                Starship Troopers z roku 2005 při zachování jeho
+                původní kampaně, atmosféry, gameplaye a swarmového
+                charakteru.
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <span class="status">
+                FUTURE PROJECT
+            </span>
+
+            <h3>
+                Original Games
+            </h3>
+
+            <p>
+                Vlastní herní projekty Main Core Entertainment
+                jsou ve vývoji a postupně zde budou představovány.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<section id="portfolio">
+
+    <div class="section-title">
+        <span>CREATION</span>
+        <h2>3D TVORBA</h2>
+    </div>
+
+    <div class="portfolio-box">
+
+        Zde postupně vznikne galerie modelů,
+        prostředí, renderů a dalších 3D prací.
+
+    </div>
+
+</section>
+
+
+<section id="about">
+
+    <div class="section-title">
+        <span>ABOUT</span>
+        <h2>O MNĚ</h2>
+    </div>
+
+    <div class="about-content">
+
+        <p>
+            Main Core Entertainment vzniká jako prostor pro tvorbu,
+            experimentování a postupný vývoj vlastních herních projektů.
+            Cílem je učit se, tvořit a posouvat každý další projekt
+            o krok dál.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="contact" class="contact">
+
+    <div class="section-title">
+        <span>CONTACT</span>
+        <h2>KONTAKT</h2>
+    </div>
+
+    <p>
+        Kontaktní informace budou doplněny.
+    </p>
+
+</section>
+
+
+<footer>
+
+    © 2026 MAIN CORE ENTERTAINMENT
+
+</footer>
+
 </body>
 </html>

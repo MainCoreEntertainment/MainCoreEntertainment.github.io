@@ -358,12 +358,206 @@
                 height: 90px;
             }
         }
+/* =========================
+   MAIN CORE - INTRO SCREEN
+   ========================= */
 
+.intro-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at 50% 38%,
+            rgba(25, 80, 140, 0.20) 0%,
+            rgba(4, 10, 18, 0.92) 35%,
+            #010204 75%);
+
+    overflow: hidden;
+}
+
+.intro-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at 20% 30%,
+            rgba(90, 170, 255, 0.12),
+            transparent 30%),
+        radial-gradient(circle at 80% 70%,
+            rgba(20, 80, 150, 0.10),
+            transparent 35%);
+
+    pointer-events: none;
+}
+
+.intro-content {
+    position: relative;
+    z-index: 2;
+
+    width: min(1000px, 90%);
+    text-align: center;
+}
+
+.intro-small {
+    color: #6fbfff;
+    font-size: 12px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+
+    margin-bottom: 28px;
+
+    opacity: 0;
+    animation: introFade 1.2s ease forwards;
+}
+
+.intro-title {
+    font-size: clamp(30px, 5vw, 66px);
+    line-height: 1.18;
+
+    letter-spacing: 4px;
+    font-weight: 700;
+
+    color: #f3f7fb;
+
+    text-shadow:
+        0 0 25px rgba(100, 180, 255, 0.16);
+
+    opacity: 0;
+    transform: translateY(20px);
+
+    animation:
+        introRise 1.6s ease 0.6s forwards;
+}
+
+.intro-never {
+    margin-top: 28px;
+
+    font-size: 18px;
+    letter-spacing: 4px;
+
+    color: #9fcfff;
+    font-style: italic;
+
+    opacity: 0;
+
+    animation:
+        introFade 1.5s ease 2.2s forwards;
+}
+
+.enter-button {
+    margin-top: 48px;
+
+    display: inline-block;
+
+    padding: 16px 42px;
+
+    border: 1px solid rgba(110, 190, 255, 0.55);
+    border-radius: 4px;
+
+    color: white;
+    background: rgba(40, 110, 170, 0.08);
+
+    font-size: 13px;
+    letter-spacing: 6px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 20px rgba(70, 160, 255, 0.08);
+
+    opacity: 0;
+
+    animation:
+        introFade 1.3s ease 3.1s forwards;
+
+    transition:
+        0.35s ease;
+}
+
+.enter-button:hover {
+    background: rgba(80, 170, 255, 0.18);
+
+    box-shadow:
+        0 0 35px rgba(70, 170, 255, 0.32);
+
+    transform: translateY(-2px);
+}
+
+@keyframes introFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes introRise {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .intro-title {
+        font-size: 31px;
+        letter-spacing: 2px;
+    }
+
+    .intro-never {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    .enter-button {
+        padding: 14px 30px;
+        letter-spacing: 4px;
+    }
+}
     </style>
 </head>
 
 <body>
+<!-- MAIN CORE INTRO -->
+<div class="intro-screen" id="introScreen">
 
+    <div class="intro-content">
+
+        <div class="intro-small">
+            REMEMBER
+        </div>
+
+        <h1 class="intro-title">
+            ONLY THOSE BRAVE ENOUGH<br>
+            TO FACE THE DARKNESS<br>
+            CAN TURN IT INTO LIGHT.
+        </h1>
+
+        <div class="intro-never">
+            Never give up.
+        </div>
+
+        <button class="enter-button" id="enterButton">
+            VSTOUPIT
+        </button>
+
+    </div>
+
+</div>
 <nav>
 
     <div class="brand">
@@ -512,6 +706,23 @@
     © 2026 MAIN CORE ENTERTAINMENT
 
 </footer>
+<script>
+    const enterButton = document.getElementById("enterButton");
+    const introScreen = document.getElementById("introScreen");
 
+    enterButton.addEventListener("click", function () {
+
+        introScreen.style.transition =
+            "opacity 1.5s ease, transform 1.5s ease";
+
+        introScreen.style.opacity = "0";
+        introScreen.style.transform = "scale(1.04)";
+
+        setTimeout(function () {
+            introScreen.style.display = "none";
+        }, 1500);
+
+    });
+</script>
 </body>
 </html>

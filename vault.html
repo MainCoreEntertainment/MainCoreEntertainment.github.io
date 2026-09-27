@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Vault | Main Core Entertainment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 50% 10%, #10141b 0%, #06080c 42%, #020304 100%);
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px);
+
+            background-size: 45px 45px;
+            opacity: 0.10;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            height: 70px;
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(2, 4, 7, 0.96);
+            border-bottom: 1px solid #171c22;
+
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand a {
+            color: #ffffff;
+            text-decoration: none;
+
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 38px;
+        }
+
+        nav ul a {
+            color: #aeb5bd;
+            text-decoration: none;
+
+            font-size: 14px;
+            letter-spacing: 1px;
+
+            transition: 0.25s ease;
+        }
+
+        nav ul a:hover,
+        nav ul a.active {
+            color: #6fc7ff;
+            text-shadow: 0 0 12px rgba(80, 180, 255, 0.55);
+        }
+
+        /* VAULT HEADER */
+
+        .vault-header {
+            min-height: 390px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 80px 20px 50px;
+        }
+
+        .vault-label {
+            color: #62bfff;
+
+            font-size: 12px;
+            letter-spacing: 7px;
+
+            margin-bottom: 22px;
+        }
+
+        .vault-header h1 {
+            font-size: clamp(55px, 8vw, 105px);
+            letter-spacing: 10px;
+            line-height: 1;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff,
+                    #c8d3dc 45%,
+                    #697782 100%
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .vault-subtitle {
+            margin-top: 20px;
+
+            color: #89939d;
+
+            font-size: 14px;
+            letter-spacing: 5px;
+        }
+
+        .vault-description {
+            max-width: 700px;
+
+            margin: 35px auto 0;
+
+            color: #9ba4ad;
+
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        /* CATEGORIES */
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            padding: 0 20px 55px;
+        }
+
+        .category {
+            border: 1px solid #26313a;
+            background: rgba(12, 16, 21, 0.8);
+
+            color: #9ca7b1;
+
+            padding: 11px 19px;
+
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            border-radius: 3px;
+        }
+
+        /* DOWNLOAD AREA */
+
+        .archive {
+            width: min(1150px, 88%);
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        .archive-title {
+            margin-bottom: 25px;
+
+            color: #6fc7ff;
+
+            font-size: 12px;
+            letter-spacing: 5px;
+        }
+
+        .vault-card {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(23, 28, 34, 0.94),
+                    rgba(9, 12, 16, 0.97)
+                );
+
+            border: 1px solid #29313a;
+            border-radius: 10px;
+
+            padding: 38px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.35);
+
+            transition: 0.3s ease;
+        }
+
+        .vault-card:hover {
+            border-color: #3d647e;
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.45),
+                0 0 25px rgba(50, 150, 220, 0.08);
+        }
+
+        .vault-card::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 4px;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    #78d2ff,
+                    #176aa4,
+                    transparent
+                );
+        }
+
+        .status {
+            color: #65c8ff;
+
+            font-size: 11px;
+            letter-spacing: 4px;
+
+            margin-bottom: 18px;
+        }
+
+        .vault-card h2 {
+            font-size: 31px;
+            margin-bottom: 8px;
+        }
+
+        .version {
+            color: #707c87;
+
+            font-size: 12px;
+            letter-spacing: 2px;
+
+            margin-bottom: 25px;
+        }
+
+        .vault-card p {
+            max-width: 750px;
+
+            color: #a7afb7;
+
+            font-size: 15px;
+            line-height: 1.8;
+
+            margin-bottom: 30px;
+        }
+
+        /* BUTTONS */
+
+        .download-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .download-button {
+            display: inline-block;
+
+            padding: 13px 24px;
+
+            color: #dcefff;
+            text-decoration: none;
+
+            border: 1px solid #337ba8;
+            border-radius: 3px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(25, 100, 150, 0.28),
+                    rgba(5, 30, 50, 0.3)
+                );
+
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            transition: 0.3s ease;
+        }
+
+        .download-button:hover {
+            border-color: #71ceff;
+
+            box-shadow:
+                0 0 15px rgba(80, 190, 255, 0.25);
+
+            transform: translateY(-2px);
+        }
+
+        .disabled {
+            opacity: 0.35;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        /* COMING SOON */
+
+        .coming-soon {
+            margin-top: 22px;
+
+            padding: 28px;
+
+            text-align: center;
+
+            border: 1px dashed #252d34;
+            border-radius: 8px;
+
+            color: #626d77;
+
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+        footer {
+            padding: 35px 20px;
+
+            text-align: center;
+
+            border-top: 1px solid #151a20;
+
+            color: #555f68;
+
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 750px) {
+
+            nav {
+                height: auto;
+                padding: 22px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .vault-header h1 {
+                letter-spacing: 5px;
+            }
+
+            .vault-card {
+                padding: 28px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="brand">
+            <a href="index.html">MAIN CORE</a>
+        </div>
+
+        <ul>
+            <li><a href="news.html">NEWS4YOU</a></li>
+            <li><a class="active" href="vault.html">THE VAULT</a></li>
+            <li><a href="about.html">ABOUT ME</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+
+    </nav>
+
+
+    <header class="vault-header">
+
+        <div>
+
+            <div class="vault-label">
+                MAIN CORE ENTERTAINMENT
+            </div>
+
+            <h1>THE VAULT</h1>
+
+            <div class="vault-subtitle">
+                DIGITAL ARCHIVE
+            </div>
+
+            <p class="vault-description">
+                Mods, language packs, tools and additional content
+                created or prepared by Main Core Entertainment.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <div class="categories">
+
+        <div class="category">MODS</div>
+        <div class="category">LANGUAGE PACKS</div>
+        <div class="category">TOOLS</div>
+        <div class="category">OTHER</div>
+
+    </div>
+
+
+    <main class="archive">
+
+        <div class="archive-title">
+            ARCHIVE // AVAILABLE FILES
+        </div>
+
+
+        <article class="vault-card">
+
+            <div class="status">
+                PROJECT IN DEVELOPMENT
+            </div>
+
+            <h2>
+                STARSHIP TROOPERS: RE-ENLISTED
+            </h2>
+
+            <div class="version">
+                MAIN CORE PROJECT
+            </div>
+
+            <p>
+                Modernization project for the original Starship Troopers
+                game from 2005. Future releases, modifications,
+                localization packages and related files will be available here.
+            </p>
+
+            <div class="download-buttons">
+
+                <a class="download-button disabled" href="#">
+                    DOWNLOAD
+                </a>
+
+                <a class="download-button disabled" href="#">
+                    MOD DB
+                </a>
+
+                <a class="download-button disabled" href="#">
+                    NEXUS MODS
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <div class="coming-soon">
+            MORE FILES WILL BE ADDED TO THE VAULT
+        </div>
+
+    </main>
+
+
+    <footer>
+        © 2026 MAIN CORE ENTERTAINMENT
+    </footer>
+
+</body>
+</html>

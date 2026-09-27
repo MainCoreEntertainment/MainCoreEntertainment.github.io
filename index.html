@@ -696,6 +696,286 @@
         font-size: 14px;
     }
 }       
+  /* =========================
+   MAIN CORE HUB
+   ========================= */
+
+.main-hub {
+    position: relative;
+    width: min(1200px, 90%);
+    margin: 0 auto;
+    padding: 110px 0 130px;
+}
+
+.hub-heading {
+    text-align: center;
+    margin-bottom: 65px;
+}
+
+.hub-heading span {
+    color: #65c8ff;
+    font-size: 11px;
+    letter-spacing: 7px;
+}
+
+.hub-heading h2 {
+    margin-top: 16px;
+
+    font-size: clamp(42px, 6vw, 72px);
+    letter-spacing: 8px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 25px rgba(80, 180, 255, 0.12);
+}
+
+.hub-heading p {
+    max-width: 600px;
+    margin: 20px auto 0;
+
+    color: #858f99;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* 4 MAIN CARDS */
+
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.hub-card {
+    position: relative;
+    min-height: 290px;
+
+    padding: 38px;
+
+    display: flex;
+    flex-direction: column;
+
+    text-decoration: none;
+    color: #ffffff;
+
+    overflow: hidden;
+
+    border: 1px solid #252e36;
+    border-radius: 8px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(55, 150, 220, 0.08),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(20, 25, 31, 0.96),
+            rgba(6, 9, 13, 0.98)
+        );
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.22);
+
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+/* BLUE LINE */
+
+.hub-card::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 3px;
+    height: 0;
+
+    background:
+        linear-gradient(
+            #8ad9ff,
+            #258fd0,
+            transparent
+        );
+
+    box-shadow:
+        0 0 18px rgba(70, 180, 255, 0.6);
+
+    transition: height 0.4s ease;
+}
+
+
+/* CARD GLOW */
+
+.hub-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    right: -120px;
+    top: -120px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70, 170, 255, 0.13),
+            transparent 68%
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.4s ease;
+}
+
+
+/* LARGE BACKGROUND NUMBER */
+
+.hub-number {
+    position: absolute;
+
+    right: 25px;
+    top: 15px;
+
+    font-size: 95px;
+    font-weight: 800;
+
+    color: rgba(255, 255, 255, 0.025);
+
+    line-height: 1;
+
+    transition:
+        color 0.35s ease,
+        transform 0.35s ease;
+}
+
+
+.hub-type {
+    position: relative;
+    z-index: 2;
+
+    color: #63c6ff;
+
+    font-size: 10px;
+    letter-spacing: 5px;
+
+    margin-bottom: 27px;
+}
+
+
+.hub-card h3 {
+    position: relative;
+    z-index: 2;
+
+    font-size: 29px;
+    letter-spacing: 2px;
+
+    margin-bottom: 17px;
+}
+
+
+.hub-card p {
+    position: relative;
+    z-index: 2;
+
+    max-width: 390px;
+
+    color: #8e99a3;
+
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+
+.hub-enter {
+    position: relative;
+    z-index: 2;
+
+    margin-top: auto;
+    padding-top: 30px;
+
+    color: #72caff;
+
+    font-size: 10px;
+    letter-spacing: 3px;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* HOVER */
+
+.hub-card:hover {
+    transform: translateY(-7px);
+
+    border-color: #3c7699;
+
+    box-shadow:
+        0 28px 60px rgba(0, 0, 0, 0.42),
+        0 0 35px rgba(50, 150, 220, 0.10);
+}
+
+.hub-card:hover::before {
+    height: 100%;
+}
+
+.hub-card:hover::after {
+    opacity: 1;
+}
+
+.hub-card:hover .hub-number {
+    color: rgba(100, 200, 255, 0.055);
+    transform: translateY(-4px);
+}
+
+.hub-card:hover .hub-enter {
+    color: #ffffff;
+    transform: translateX(5px);
+
+    text-shadow:
+        0 0 12px rgba(80, 190, 255, 0.65);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 750px) {
+
+    .main-hub {
+        padding: 75px 0 90px;
+    }
+
+    .hub-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hub-card {
+        min-height: 260px;
+        padding: 30px;
+    }
+
+    .hub-heading h2 {
+        letter-spacing: 4px;
+    }
+
+    .hub-number {
+        font-size: 75px;
+    }
+}
     </style>
 </head>
 
@@ -775,118 +1055,73 @@
         a 3D tvorbu.
     </p>
 
-    <a class="hero-button" href="#games">
-        OBJEVIT PROJEKTY
-    </a>
-
+ <a class="hero-button" href="vault.html">
+    ENTER THE VAULT
+</a>
 </header>
 
+<section class="main-hub">
 
-<section id="games" class="games">
-
-    <div class="section-title">
-        <span>PROJECTS</span>
-        <h2>HRY</h2>
-    </div>
-
-    <div class="cards">
-
-        <article class="card">
-
-            <span class="status">
-                PROJECT IN DEVELOPMENT
-            </span>
-
-            <h3>
-                Starship Troopers<br>
-                Re-Enlisted
-            </h3>
-
-            <p>
-                Projekt zaměřený na modernizaci původního
-                Starship Troopers z roku 2005 při zachování jeho
-                původní kampaně, atmosféry, gameplaye a swarmového
-                charakteru.
-            </p>
-
-        </article>
-
-
-        <article class="card">
-
-            <span class="status">
-                FUTURE PROJECT
-            </span>
-
-            <h3>
-                Original Games
-            </h3>
-
-            <p>
-                Vlastní herní projekty Main Core Entertainment
-                jsou ve vývoji a postupně zde budou představovány.
-            </p>
-
-        </article>
-
-    </div>
-
-</section>
-
-
-<section id="portfolio">
-
-    <div class="section-title">
-        <span>CREATION</span>
-        <h2>3D TVORBA</h2>
-    </div>
-
-    <div class="portfolio-box">
-
-        Zde postupně vznikne galerie modelů,
-        prostředí, renderů a dalších 3D prací.
-
-    </div>
-
-</section>
-
-
-<section id="about">
-
-    <div class="section-title">
-        <span>ABOUT</span>
-        <h2>O MNĚ</h2>
-    </div>
-
-    <div class="about-content">
-
+    <div class="hub-heading">
+        <span>MAIN CORE NETWORK</span>
+        <h2>EXPLORE</h2>
         <p>
-            Main Core Entertainment vzniká jako prostor pro tvorbu,
-            experimentování a postupný vývoj vlastních herních projektů.
-            Cílem je učit se, tvořit a posouvat každý další projekt
-            o krok dál.
+            News, projects, modifications and information
+            from Main Core Entertainment.
         </p>
+    </div>
+
+    <div class="hub-grid">
+
+        <a class="hub-card" href="news.html">
+            <div class="hub-number">01</div>
+            <div class="hub-type">TRANSMISSIONS</div>
+            <h3>NEWS4YOU</h3>
+            <p>
+                Development news, project updates
+                and future announcements.
+            </p>
+            <div class="hub-enter">OPEN CHANNEL →</div>
+        </a>
+
+        <a class="hub-card" href="vault.html">
+            <div class="hub-number">02</div>
+            <div class="hub-type">PROJECT ARCHIVE</div>
+            <h3>THE VAULT</h3>
+            <p>
+                Mods, utilities, releases
+                and Main Core projects.
+            </p>
+            <div class="hub-enter">ENTER THE VAULT →</div>
+        </a>
+
+        <a class="hub-card" href="about.html">
+            <div class="hub-number">03</div>
+            <div class="hub-type">IDENTITY</div>
+            <h3>ABOUT ME</h3>
+            <p>
+                The person, ideas and vision
+                behind Main Core Entertainment.
+            </p>
+            <div class="hub-enter">DISCOVER →</div>
+        </a>
+
+        <a class="hub-card" href="contact.html">
+            <div class="hub-number">04</div>
+            <div class="hub-type">COMMUNICATION</div>
+            <h3>CONTACT</h3>
+            <p>
+                Official links and ways
+                to connect with Main Core.
+            </p>
+            <div class="hub-enter">GET IN TOUCH →</div>
+        </a>
 
     </div>
 
 </section>
 
-
-<section id="contact" class="contact">
-
-    <div class="section-title">
-        <span>CONTACT</span>
-        <h2>KONTAKT</h2>
-    </div>
-
-    <p>
-        Kontaktní informace budou doplněny.
-    </p>
-
-</section>
-
-
-<footer>
+    <footer>
 
     © 2026 MAIN CORE ENTERTAINMENT
 

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>News4You | Main Core Entertainment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 50% 10%, #10141b 0%, #06080c 42%, #020304 100%);
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px);
+
+            background-size: 45px 45px;
+            opacity: 0.10;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            height: 70px;
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(2, 4, 7, 0.96);
+            border-bottom: 1px solid #171c22;
+
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand a {
+            color: #ffffff;
+            text-decoration: none;
+
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 38px;
+        }
+
+        nav ul a {
+            color: #aeb5bd;
+            text-decoration: none;
+
+            font-size: 14px;
+            letter-spacing: 1px;
+
+            transition: 0.25s ease;
+        }
+
+        nav ul a:hover,
+        nav ul a.active {
+            color: #6fc7ff;
+            text-shadow: 0 0 12px rgba(80, 180, 255, 0.55);
+        }
+
+        /* HEADER */
+
+        .news-header {
+            min-height: 350px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 80px 20px 45px;
+        }
+
+        .header-label {
+            color: #63c2ff;
+
+            font-size: 12px;
+            letter-spacing: 7px;
+
+            margin-bottom: 22px;
+        }
+
+        .news-header h1 {
+            font-size: clamp(55px, 8vw, 100px);
+
+            letter-spacing: 8px;
+            line-height: 1;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #cbd6df 48%,
+                    #65727d 100%
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                0 15px 35px rgba(0,0,0,0.55);
+        }
+
+        .news-subtitle {
+            margin-top: 22px;
+
+            color: #87919a;
+
+            font-size: 13px;
+            letter-spacing: 5px;
+        }
+
+        /* NEWS */
+
+        .news-area {
+            width: min(1150px, 88%);
+            margin: 0 auto;
+
+            padding: 20px 0 100px;
+        }
+
+        .section-title {
+            color: #64c4ff;
+
+            font-size: 12px;
+            letter-spacing: 5px;
+
+            margin-bottom: 25px;
+        }
+
+        .news-card {
+            position: relative;
+
+            padding: 42px;
+
+            margin-bottom: 22px;
+
+            border: 1px solid #29313a;
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(23, 28, 34, 0.95),
+                    rgba(9, 12, 16, 0.97)
+                );
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.35);
+
+            overflow: hidden;
+
+            transition: 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #3c647e;
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.45),
+                0 0 25px rgba(50,150,220,0.08);
+        }
+
+        .news-card::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 4px;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    #77d3ff,
+                    #176aa4,
+                    transparent
+                );
+        }
+
+        .news-meta {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 14px;
+
+            margin-bottom: 20px;
+
+            color: #62c4ff;
+
+            font-size: 11px;
+            letter-spacing: 3px;
+        }
+
+        .news-card h2 {
+            font-size: clamp(25px, 4vw, 37px);
+
+            margin-bottom: 18px;
+
+            letter-spacing: 1px;
+        }
+
+        .news-card p {
+            max-width: 820px;
+
+            color: #a6afb8;
+
+            line-height: 1.8;
+            font-size: 15px;
+
+            margin-bottom: 28px;
+        }
+
+        .read-more {
+            display: inline-block;
+
+            padding: 12px 22px;
+
+            color: #dcefff;
+            text-decoration: none;
+
+            border: 1px solid #337ba8;
+            border-radius: 3px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(25,100,150,0.28),
+                    rgba(5,30,50,0.3)
+                );
+
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            transition: 0.3s ease;
+        }
+
+        .read-more:hover {
+            border-color: #71ceff;
+
+            box-shadow:
+                0 0 15px rgba(80,190,255,0.25);
+
+            transform: translateY(-2px);
+        }
+
+        .coming {
+            padding: 32px;
+
+            text-align: center;
+
+            border: 1px dashed #252d34;
+            border-radius: 8px;
+
+            color: #626d77;
+
+            font-size: 12px;
+            letter-spacing: 3px;
+        }
+
+        footer {
+            padding: 35px 20px;
+
+            text-align: center;
+
+            border-top: 1px solid #151a20;
+
+            color: #555f68;
+
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 750px) {
+
+            nav {
+                height: auto;
+
+                padding: 22px;
+
+                flex-direction: column;
+
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 15px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .news-header h1 {
+                font-size: 47px;
+                letter-spacing: 4px;
+            }
+
+            .news-card {
+                padding: 29px 24px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="brand">
+            <a href="index.html">MAIN CORE</a>
+        </div>
+
+        <ul>
+            <li><a class="active" href="news.html">NEWS4YOU</a></li>
+            <li><a href="vault.html">THE VAULT</a></li>
+            <li><a href="about.html">ABOUT ME</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+
+    </nav>
+
+
+    <header class="news-header">
+
+        <div>
+
+            <div class="header-label">
+                MAIN CORE ENTERTAINMENT
+            </div>
+
+            <h1>NEWS4YOU</h1>
+
+            <div class="news-subtitle">
+                DEVELOPMENT // PROJECTS // UPDATES
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="news-area">
+
+        <div class="section-title">
+            LATEST // MAIN CORE
+        </div>
+
+
+        <article class="news-card">
+
+            <div class="news-meta">
+                <span>27 SEP 2026</span>
+                <span>//</span>
+                <span>DEVELOPMENT</span>
+            </div>
+
+            <h2>
+                Starship Troopers: Re-Enlisted
+            </h2>
+
+            <p>
+                Starship Troopers: Re-Enlisted is currently in development.
+                The project focuses on modernizing the original 2005 game
+                while preserving its campaign, atmosphere and swarm-based gameplay.
+            </p>
+
+            <a class="read-more" href="vault.html">
+                VIEW PROJECT
+            </a>
+
+        </article>
+
+
+        <article class="news-card">
+
+            <div class="news-meta">
+                <span>MAIN CORE</span>
+                <span>//</span>
+                <span>FUTURE PROJECTS</span>
+            </div>
+
+            <h2>
+                More projects are coming.
+            </h2>
+
+            <p>
+                Future games, modifications, 3D projects and development
+                updates from Main Core Entertainment will appear here.
+            </p>
+
+        </article>
+
+
+        <div class="coming">
+            NEXT TRANSMISSION // COMING SOON
+        </div>
+
+    </main>
+
+
+    <footer>
+        © 2026 MAIN CORE ENTERTAINMENT
+    </footer>
+
+</body>
+</html>

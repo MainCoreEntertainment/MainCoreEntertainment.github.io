@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Main Core Entertainment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 50% 35%,
+                    #0c1b29 0%,
+                    #060b11 35%,
+                    #020304 72%,
+                    #000000 100%);
+
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(circle,
+                    rgba(255,255,255,0.09) 1px,
+                    transparent 1px);
+
+            background-size: 45px 45px;
+            opacity: 0.08;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            height: 70px;
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(2,4,7,0.96);
+            border-bottom: 1px solid #171c22;
+
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand a {
+            color: #ffffff;
+            text-decoration: none;
+
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        nav ul {
+            list-style: none;
+
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        nav ul a {
+            color: #aeb5bd;
+            text-decoration: none;
+
+            font-size: 13px;
+            letter-spacing: 1px;
+
+            transition: 0.25s ease;
+        }
+
+        nav ul a:hover {
+            color: #6fc7ff;
+        }
+
+        .login-nav {
+            padding: 9px 17px;
+
+            border: 1px solid #3a779c;
+            border-radius: 3px;
+
+            color: #78ceff !important;
+        }
+
+        /* REGISTER AREA */
+
+        .access-area {
+            min-height: calc(100vh - 70px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 70px 20px;
+
+            position: relative;
+        }
+
+        .access-glow {
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(circle,
+                    rgba(70,170,255,0.13),
+                    rgba(20,80,150,0.05) 38%,
+                    transparent 70%);
+
+            filter: blur(15px);
+
+            pointer-events: none;
+        }
+
+        .access-terminal {
+            width: min(500px, 100%);
+
+            position: relative;
+            z-index: 2;
+
+            padding: 45px;
+
+            border: 1px solid #293640;
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(19,25,31,0.97),
+                    rgba(5,8,12,0.98)
+                );
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.6),
+                0 0 40px rgba(50,150,220,0.07);
+
+            overflow: hidden;
+        }
+
+        .access-terminal::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #65c8ff,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 15px rgba(80,190,255,0.65);
+        }
+
+        .terminal-status {
+            color: #61c6ff;
+
+            font-size: 9px;
+            letter-spacing: 4px;
+
+            margin-bottom: 28px;
+        }
+
+        .access-terminal h1 {
+            font-size: 35px;
+            letter-spacing: 3px;
+
+            margin-bottom: 12px;
+        }
+
+        .terminal-subtitle {
+            color: #7f8b95;
+
+            font-size: 13px;
+            line-height: 1.7;
+
+            margin-bottom: 38px;
+        }
+
+        /* FORM */
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field label {
+            display: block;
+
+            color: #8b98a3;
+
+            font-size: 9px;
+            letter-spacing: 3px;
+
+            margin-bottom: 10px;
+        }
+
+        .field input {
+            width: 100%;
+
+            padding: 15px 16px;
+
+            border: 1px solid #2c3740;
+            border-radius: 4px;
+
+            outline: none;
+
+            background: #070b0f;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            transition: 0.25s ease;
+        }
+
+        .field input:focus {
+            border-color: #4ba8df;
+
+            box-shadow:
+                0 0 0 2px rgba(60,160,220,0.08),
+                0 0 18px rgba(50,150,220,0.08);
+        }
+
+        .create-account {
+            width: 100%;
+
+            margin-top: 10px;
+
+            padding: 16px;
+
+            border: 1px solid #3989b9;
+            border-radius: 4px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(27,110,165,0.42),
+                    rgba(5,36,60,0.55)
+                );
+
+            color: #eaf8ff;
+
+            font-size: 11px;
+            letter-spacing: 4px;
+
+            cursor: pointer;
+
+            transition: 0.3s ease;
+        }
+
+        .create-account:hover {
+            border-color: #6fcfff;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(40,140,205,0.52),
+                    rgba(8,55,90,0.65)
+                );
+
+            box-shadow:
+                0 0 25px rgba(60,170,240,0.16);
+        }
+
+        /* LOGIN LINK */
+
+        .login-area {
+            margin-top: 32px;
+            padding-top: 25px;
+
+            border-top: 1px solid #202830;
+
+            text-align: center;
+        }
+
+        .login-area p {
+            color: #626e78;
+
+            font-size: 10px;
+            letter-spacing: 2px;
+
+            margin-bottom: 13px;
+        }
+
+        .login-area a {
+            color: #6fcaff;
+            text-decoration: none;
+
+            font-size: 11px;
+            letter-spacing: 3px;
+        }
+
+        .login-area a:hover {
+            color: #ffffff;
+
+            text-shadow:
+                0 0 12px rgba(80,190,255,0.7);
+        }
+
+        .security {
+            margin-top: 28px;
+
+            text-align: center;
+
+            color: #3e4952;
+
+            font-size: 8px;
+            letter-spacing: 3px;
+        }
+
+        @media (max-width: 750px) {
+
+            nav {
+                height: auto;
+                padding: 22px;
+
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 14px;
+
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .access-terminal {
+                padding: 32px 25px;
+            }
+
+            .access-terminal h1 {
+                font-size: 29px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="brand">
+            <a href="index.html">MAIN CORE</a>
+        </div>
+
+        <ul>
+            <li><a href="news.html">NEWS4YOU</a></li>
+            <li><a href="vault.html">THE VAULT</a></li>
+            <li><a href="about.html">ABOUT ME</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a class="login-nav" href="login.html">LOGIN</a></li>
+        </ul>
+
+    </nav>
+
+
+    <main class="access-area">
+
+        <div class="access-glow"></div>
+
+        <section class="access-terminal">
+
+            <div class="terminal-status">
+                MAIN CORE // NEW IDENTITY
+            </div>
+
+            <h1>CREATE ACCOUNT</h1>
+
+            <p class="terminal-subtitle">
+                Create your Main Core identity and join the network.
+            </p>
+
+
+            <form id="registerForm">
+
+                <div class="field">
+
+                    <label for="displayName">
+                        DISPLAY NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="displayName"
+                        autocomplete="username"
+                        minlength="3"
+                        maxlength="24"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="email">
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="password">
+                        PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="confirmPassword">
+                        CONFIRM PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+
+                </div>
+
+
+                <button class="create-account" type="submit">
+                    CREATE ACCOUNT
+                </button>
+
+            </form>
+
+
+            <div class="login-area">
+
+                <p>
+                    ALREADY REGISTERED?
+                </p>
+
+                <a href="login.html">
+                    SIGN IN →
+                </a>
+
+            </div>
+
+
+            <div class="security">
+                MAIN CORE // REGISTRATION TERMINAL
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        registerForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+
+                alert("Passwords do not match.");
+                return;
+
+            }
+
+            alert(
+                "Registration will be activated in the next step."
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>

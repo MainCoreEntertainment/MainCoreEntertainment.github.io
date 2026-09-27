@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Me | Main Core Entertainment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(circle at 50% 10%,
+                    #10141b 0%,
+                    #06080c 42%,
+                    #020304 100%);
+
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(circle,
+                    rgba(255,255,255,0.09) 1px,
+                    transparent 1px);
+
+            background-size: 45px 45px;
+            opacity: 0.10;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            height: 70px;
+            padding: 0 6%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(2, 4, 7, 0.96);
+            border-bottom: 1px solid #171c22;
+
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand a {
+            color: #ffffff;
+            text-decoration: none;
+
+            font-size: 21px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 38px;
+        }
+
+        nav ul a {
+            color: #aeb5bd;
+            text-decoration: none;
+
+            font-size: 14px;
+            letter-spacing: 1px;
+
+            transition: 0.25s ease;
+        }
+
+        nav ul a:hover,
+        nav ul a.active {
+            color: #6fc7ff;
+
+            text-shadow:
+                0 0 12px rgba(80,180,255,0.55);
+        }
+
+        /* HEADER */
+
+        .about-header {
+            min-height: 380px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 90px 20px 55px;
+        }
+
+        .header-label {
+            color: #63c2ff;
+
+            font-size: 12px;
+            letter-spacing: 7px;
+
+            margin-bottom: 22px;
+        }
+
+        .about-header h1 {
+            font-size: clamp(55px, 8vw, 100px);
+
+            letter-spacing: 8px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #cbd6df 48%,
+                    #65727d 100%
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                0 15px 35px rgba(0,0,0,0.55);
+        }
+
+        .subtitle {
+            margin-top: 20px;
+
+            color: #89939d;
+
+            font-size: 13px;
+            letter-spacing: 5px;
+        }
+
+        /* CONTENT */
+
+        .about-area {
+            width: min(1050px, 88%);
+
+            margin: 0 auto;
+
+            padding: 20px 0 100px;
+        }
+
+        .intro {
+            max-width: 780px;
+
+            margin: 0 auto 60px;
+
+            text-align: center;
+
+            color: #a7afb7;
+
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .card {
+            position: relative;
+
+            min-height: 280px;
+
+            padding: 34px;
+
+            border: 1px solid #29313a;
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(23,28,34,0.95),
+                    rgba(9,12,16,0.97)
+                );
+
+            overflow: hidden;
+
+            transition: 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+
+            border-color: #3c647e;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.4),
+                0 0 25px rgba(50,150,220,0.08);
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 3px;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    #78d2ff,
+                    #176aa4,
+                    transparent
+                );
+        }
+
+        .card-number {
+            color: #5fc4ff;
+
+            font-size: 11px;
+            letter-spacing: 4px;
+
+            margin-bottom: 25px;
+        }
+
+        .card h2 {
+            font-size: 23px;
+
+            margin-bottom: 18px;
+
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #9fa8b1;
+
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* QUOTE */
+
+        .vision-quote {
+            position: relative;
+
+            margin-top: 70px;
+
+            padding: 65px 30px;
+
+            text-align: center;
+
+            border-top: 1px solid #202830;
+            border-bottom: 1px solid #202830;
+        }
+
+        .quote-label {
+            color: #5fc4ff;
+
+            font-size: 10px;
+            letter-spacing: 6px;
+
+            margin-bottom: 25px;
+        }
+
+        .vision-quote blockquote {
+            max-width: 850px;
+
+            margin: auto;
+
+            color: #e7edf2;
+
+            font-size: clamp(22px, 3vw, 34px);
+
+            line-height: 1.5;
+
+            font-weight: 600;
+        }
+
+        .never-give-up {
+            margin-top: 25px;
+
+            color: #78cfff;
+
+            font-size: 15px;
+            letter-spacing: 4px;
+
+            font-style: italic;
+        }
+
+        footer {
+            padding: 35px 20px;
+
+            text-align: center;
+
+            border-top: 1px solid #151a20;
+
+            color: #555f68;
+
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 850px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                height: auto;
+
+                padding: 22px;
+
+                flex-direction: column;
+
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 15px;
+
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .about-header h1 {
+                font-size: 48px;
+                letter-spacing: 4px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <nav>
+
+        <div class="brand">
+            <a href="index.html">MAIN CORE</a>
+        </div>
+
+        <ul>
+            <li><a href="news.html">NEWS4YOU</a></li>
+            <li><a href="vault.html">THE VAULT</a></li>
+            <li><a class="active" href="about.html">ABOUT ME</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+
+    </nav>
+
+
+    <header class="about-header">
+
+        <div>
+
+            <div class="header-label">
+                MAIN CORE ENTERTAINMENT
+            </div>
+
+            <h1>ABOUT ME</h1>
+
+            <div class="subtitle">
+                THE PERSON BEHIND MAIN CORE
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="about-area">
+
+        <p class="intro">
+            Main Core Entertainment is an independent creative project
+            focused on games, 3D creation, modding and experimentation
+            with modern development tools. It is a place where ideas
+            can slowly grow into real worlds, projects and experiences.
+        </p>
+
+
+        <div class="cards">
+
+            <article class="card">
+
+                <div class="card-number">
+                    01 // MAIN CORE
+                </div>
+
+                <h2>
+                    Independent Creation
+                </h2>
+
+                <p>
+                    Main Core was created as a home for independent
+                    projects, experiments and ideas. From modernizing
+                    older games to developing completely new concepts.
+                </p>
+
+            </article>
+
+
+            <article class="card">
+
+                <div class="card-number">
+                    02 // CREATION
+                </div>
+
+                <h2>
+                    Games & 3D
+                </h2>
+
+                <p>
+                    My work focuses on game development, 3D creation,
+                    modding and learning new technologies that can help
+                    turn an idea into something people can experience.
+                </p>
+
+            </article>
+
+
+            <article class="card">
+
+                <div class="card-number">
+                    03 // VISION
+                </div>
+
+                <h2>
+                    Build Something Different
+                </h2>
+
+                <p>
+                    The goal is not simply to recreate what already
+                    exists. Every project is an opportunity to learn,
+                    experiment and gradually build something with its
+                    own identity.
+                </p>
+
+            </article>
+
+        </div>
+
+
+        <section class="vision-quote">
+
+            <div class="quote-label">
+                MAIN CORE // VISION
+            </div>
+
+            <blockquote>
+                ONLY THOSE BRAVE ENOUGH TO FACE THE DARKNESS
+                CAN TURN IT INTO LIGHT.
+            </blockquote>
+
+            <div class="never-give-up">
+                Never give up.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        © 2026 MAIN CORE ENTERTAINMENT
+    </footer>
+
+</body>
+</html>

@@ -499,20 +499,50 @@
     </main>
 
 
-    <script>
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        const registerForm =
-            document.getElementById("registerForm");
+<script>
 
-        registerForm.addEventListener("submit", function(event) {
+    /* =========================
+       MAIN CORE // SUPABASE
+       ========================= */
+
+    const SUPABASE_URL = "https://tklnljwfssjwuopzllmj.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_Eut2MFOXTC471_mHHldPAg_UpCF74iv";
+
+    const supabaseClient = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+    /* =========================
+       REGISTRATION
+       ========================= */
+
+    const registerForm =
+        document.getElementById("registerForm");
+
+    registerForm.addEventListener(
+        "submit",
+        async function(event) {
 
             event.preventDefault();
+
+            const displayName =
+                document.getElementById("displayName").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
 
             const password =
                 document.getElementById("password").value;
 
             const confirmPassword =
                 document.getElementById("confirmPassword").value;
+
+
+            /* PASSWORD CHECK */
 
             if (password !== confirmPassword) {
 
@@ -521,13 +551,57 @@
 
             }
 
+
+            /* CREATE USER */
+
+            const { data, error } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: password,
+
+                    options: {
+
+                        data: {
+                            display_name: displayName
+                        },
+
+                        emailRedirectTo:
+                            "https://maincoreentertainment.github.io/login.html"
+
+                    }
+
+                });
+
+
+            /* ERROR */
+
+            if (error) {
+
+                alert(
+                    "Registration failed:\n\n" +
+                    error.message
+                );
+
+                return;
+
+            }
+
+
+            /* SUCCESS */
+
             alert(
-                "Registration will be activated in the next step."
+                "MAIN CORE ACCOUNT CREATED\n\n" +
+                "Check your email and confirm your account."
             );
 
-        });
+            registerForm.reset();
 
-    </script>
+        }
+    );
+
+</script>
 
 </body>
 </html>

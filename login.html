@@ -466,15 +466,74 @@
     </main>
 
 
-    <script>
-        const loginForm = document.getElementById("loginForm");
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        loginForm.addEventListener("submit", function(event) {
+<script>
+
+    /* =========================
+       MAIN CORE // SUPABASE
+       ========================= */
+
+    const SUPABASE_URL = "https://tklnljwfssjwuopzllmj.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_Eut2MFOXTC471_mHHldPAg_UpCF74iv";
+
+    const supabaseClient = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+    /* =========================
+       LOGIN
+       ========================= */
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    loginForm.addEventListener(
+        "submit",
+        async function(event) {
+
             event.preventDefault();
 
-            alert("Authentication will be activated in the next step.");
-        });
-    </script>
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+
+            const { data, error } =
+                await supabaseClient.auth.signInWithPassword({
+
+                    email: email,
+                    password: password
+
+                });
+
+
+            if (error) {
+
+                alert(
+                    "LOGIN FAILED\n\n" +
+                    error.message
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "ACCESS GRANTED\n\nWelcome to Main Core."
+            );
+
+            window.location.href = "index.html";
+
+        }
+    );
+
+</script>
 
 </body>
 </html>
